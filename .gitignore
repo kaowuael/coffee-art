@@ -1,0 +1,23 @@
+# Node / JS
+node_modules/
+npm-debug.log*
+pnpm-lock.yaml
+yarn.lock
+
+# VS Code
+.vscode/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Build outputs
+dist/
+.build/
+.next/
+out/
+
+# Docker local bind mounts
+docker/data/
