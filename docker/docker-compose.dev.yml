@@ -1,0 +1,26 @@
+services:
+  mongo:
+    image: mongo:7
+    container_name: coffeeart-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  backend:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    container_name: coffeeart-backend
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=development
+      - MONGO_URL=mongodb://mongo:27017/coffeeart
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+
+volumes:
+  mongo_data:

@@ -1,0 +1,11 @@
+{
+    "recommendations": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "ms-vscode.vscode-typescript-tslint-plugin",
+        "ms-azuretools.vscode-docker",
+        "mongodb.mongodb-vscode",
+        "ms-azuretools.vscode-azurefunctions",
+        "formulahendry.code-runner"
+    ]
+}

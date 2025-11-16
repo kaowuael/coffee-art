@@ -1,11 +1,8 @@
 # Node / JS
 node_modules/
 npm-debug.log*
-pnpm-lock.yaml
 yarn.lock
-
-# VS Code
-.vscode/
+pnpm-lock.yaml
 
 # Logs
 logs/
@@ -19,5 +16,20 @@ dist/
 .next/
 out/
 
-# Docker local bind mounts
+# VS Code settings (zostawiasz świadomie)
+# Jeśli chcesz śledzić workspace w repo – NIE ignorujemy
+# .vscode/
+
+# Docker bind mounts
 docker/data/
+
+# Docker temp files
+docker/*.log
+
+# OS system files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.swp
