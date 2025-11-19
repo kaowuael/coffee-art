@@ -1,26 +1,20 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Item, ItemDocument } from './item.schema';
 
 @Injectable()
 export class ItemsService {
-  // na razie mock – później tu wepniemy BC/Mongo
-  private readonly items = [
-    {
-      id: 'DEMO-001',
-      name: 'Demo Coffee 1',
-      description: 'Sample item from Coffee.art backend',
-      price: 49.99,
-      currency: 'PLN',
-    },
-    {
-      id: 'DEMO-002',
-      name: 'Demo Coffee 2',
-      description: 'Another sample item from Coffee.art backend',
-      price: 79.99,
-      currency: 'PLN',
-    },
-  ];
+  constructor(
+    @InjectModel(Item.name)
+    private readonly itemModel: Model<ItemDocument>,
+  ) {}
 
-  findAll() {
-    return this.items;
+  async findAll(): Promise<ItemDocument[]> {
+    return this.itemModel.find().exec();
+  }
+
+  async findOne(itemId: string): Promise<ItemDocument | null> {
+    return this.itemModel.findOne({ itemId }).exec();
   }
 }
