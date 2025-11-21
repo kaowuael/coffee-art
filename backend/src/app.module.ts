@@ -5,6 +5,7 @@ import { ItemsModule } from './items/items.module';
 
 // 👉 DODAJ TO:
 import { MongooseModule } from '@nestjs/mongoose';
+import { BcModule } from './bc/bc.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { MongooseModule } from '@nestjs/mongoose';
     ),
 
     ItemsModule,
+    BcModule,
   ],
   controllers: [AppController],
   providers: [AppService],

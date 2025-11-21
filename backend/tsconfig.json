@@ -22,5 +22,6 @@
     "noFallthroughCasesInSwitch": false
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "dist", "test"],
+  "typeRoots": ["./node_modules/@types", "./types"]
 }
