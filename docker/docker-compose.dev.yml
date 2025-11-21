@@ -14,6 +14,8 @@ services:
       dockerfile: Dockerfile
     container_name: coffeeart-backend
     restart: unless-stopped
+    env_file:
+      - ../backend/.env   # ← KLUCZOWE!
     environment:
       - NODE_ENV=development
       - MONGO_URL=mongodb://mongo:27017/coffeeart
@@ -24,3 +26,4 @@ services:
 
 volumes:
   mongo_data:
+

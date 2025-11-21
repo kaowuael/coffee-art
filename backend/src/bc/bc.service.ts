@@ -1,47 +1,38 @@
 import { Injectable } from '@nestjs/common';
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import { BcPingResponse } from './dto/bc-ping-response';
 
 @Injectable()
 export class BcService {
   private readonly bcBaseUrl: string;
-  private readonly username: string;
-  private readonly password: string;
 
   constructor() {
-    this.bcBaseUrl = process.env.BC_URL || '';
-    this.username = process.env.BC_USER || '';
-    this.password = process.env.BC_PASSWORD || '';
+    this.bcBaseUrl = process.env.BC_API_BASE || '';
+    console.log('BC_API_BASE loaded:', this.bcBaseUrl);
   }
 
   async ping(): Promise<BcPingResponse> {
     try {
-      // axios.get<BcPingResponse> – jasne typowanie odpowiedzi
-      const response: AxiosResponse = await axios.get(this.bcBaseUrl, {
-        auth: {
-          username: this.username,
-          password: this.password,
-        },
+      // jeszcze bez tokena, tylko test URL
+      const response = await axios.get(this.bcBaseUrl, {
+        validateStatus: () => true, // pozwala odczytać 401 bez wyjątku
       });
 
-      // teraz response.status ma typ: number → BŁĄD ZNIKA
+      // jeśli URL poprawny, ale brak tokena → BC zwróci 401
       return {
-        ok: true,
+        ok: response.status >= 200 && response.status < 300,
         status: response.status,
+        message: 'Request sent successfully',
       };
-    } catch (e: unknown) {
-      let message = 'Unknown error connecting to BC';
+    } catch (e) {
+      let msg = 'Unknown error';
 
-      // najbezpieczniejsza wersja — klasyk Enterprise
-      if (axios.isAxiosError(e)) {
-        message = e.message;
-      } else if (e instanceof Error) {
-        message = e.message;
-      }
+      if (axios.isAxiosError(e) && e.message) msg = e.message;
+      else if (e instanceof Error) msg = e.message;
 
       return {
         ok: false,
-        error: message,
+        error: msg,
       };
     }
   }
