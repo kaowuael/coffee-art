@@ -35,4 +35,6 @@ Thumbs.db
 *.swp
 
 # Environment files
-*.env
+.env
+.env.*
+!.env.example
