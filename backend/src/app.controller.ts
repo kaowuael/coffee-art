@@ -27,4 +27,8 @@ export class AppController {
   pingBc(): Promise<BcPingResponse> {
     return this.bcService.ping();
   }
+  @Get('bc/ping-auth')
+  pingAuth() {
+    return this.bcService.pingAuth();
+  }
 }
